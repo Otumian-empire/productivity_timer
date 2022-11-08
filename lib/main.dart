@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:productivity_timer/widgets.dart';
+import 'package:percent_indicator/percent_indicator.dart';
+import 'package:productivity_timer/timer.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
+
+  final CountDownTimer timer = CountDownTimer();
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    timer.startWork();
+
     return MaterialApp(
       title: "My Work Timer",
       theme: ThemeData(
@@ -32,8 +38,10 @@ class TimerHomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("My Work Timer"),
       ),
-      body: Center(
-        child: Column(
+      body: LayoutBuilder(builder: (context, constraints) {
+        final double availableWidth = constraints.maxWidth;
+
+        return Column(
           children: [
             Row(
               children: [
@@ -67,8 +75,15 @@ class TimerHomePage extends StatelessWidget {
                 Padding(padding: EdgeInsets.all(defaultPadding)),
               ],
             ),
-            const Expanded(
-              child: Text("Hello there!"),
+            Expanded(
+              child: CircularPercentIndicator(
+                radius: availableWidth / 2,
+                lineWidth: 10.0,
+                percent: 1,
+                center: Text("30:00",
+                    style: Theme.of(context).textTheme.displaySmall),
+                progressColor: const Color(0xff009688),
+              ),
             ),
             Row(
               children: [
@@ -94,8 +109,8 @@ class TimerHomePage extends StatelessWidget {
               ],
             ),
           ],
-        ),
-      ),
+        );
+      }),
     );
   }
 

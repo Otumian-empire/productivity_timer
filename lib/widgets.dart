@@ -9,10 +9,10 @@ class ProductivityButton extends StatelessWidget {
   /* final  */ VoidCallback? onPressed;
 
   ProductivityButton(
-      {@required this.color,
-      @required this.text,
-      @required this.size,
-      @required this.onPressed});
+      {required this.color,
+      required this.text,
+      required this.size,
+      required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
